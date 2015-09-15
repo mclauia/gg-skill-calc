@@ -1,0 +1,18 @@
+images:
+    cwd: './app/'
+    src: ['**/*.png', '**/*.jpg']
+    dest: './root/assets/images/'
+    flatten: false
+    expand: true
+fonts:
+    cwd: './bower_components/bootstrap/fonts/'
+    src: '**'
+    dest: './root/assets/fonts/'
+    flatten: false
+    expand: true
+index:
+    cwd: './app/'
+    src: 'index.html'
+    dest: './root/'
+    flatten: false
+    expand: true

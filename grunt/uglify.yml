@@ -1,0 +1,4 @@
+js:
+    files:
+        './root/assets/js/app.out.min.js': './root/assets/js/app.out.js'
+        './root/assets/js/lib.out.min.js': './root/assets/js/lib.out.js'

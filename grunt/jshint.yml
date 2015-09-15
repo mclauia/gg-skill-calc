@@ -1,0 +1,29 @@
+src: ['GruntFile.js', './assets/js/**/*.js', './grunt/**/*.js']
+options:
+    debug: true
+    curly: true
+    eqeqeq: false
+    immed: true
+    latedef: true
+    newcap: true
+    noarg: true
+    sub: true
+    undef: true
+    boss: true
+    eqnull: true
+    browser: true
+    asi: true
+    globals:
+        module: true
+        require: true
+        define: true
+        requirejs: true
+        describe: true
+        expect: true
+        it: true
+        console: true
+        alert: true
+        "$": true
+        angular: true
+        jQuery: true
+        "_": true

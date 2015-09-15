@@ -1,0 +1,7 @@
+# compile our application less files
+options:
+    sourceMap: false
+    syncImport: true
+compile_app:
+    files:
+        - "./root/assets/css/app.out.css": "./app/**/*.less"

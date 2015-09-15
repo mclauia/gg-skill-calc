@@ -1,0 +1,4 @@
+# concat our application js files
+js_app:
+    src: ['./app/**/*.js', './tmp/templates.js']
+    dest: './root/assets/js/app.out.js'

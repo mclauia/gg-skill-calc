@@ -1,0 +1,14 @@
+# concat bower components into lib files
+# see https://github.com/sapegin/grunt-bower-concat
+all:
+    dest: './root/assets/js/lib.out.js'
+    cssDest: './root/assets/css/lib.out.css'
+
+    exclude:
+
+    dependencies:
+
+    mainFiles:
+
+    bowerOptions:
+        relative: false

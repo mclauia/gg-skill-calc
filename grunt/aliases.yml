@@ -1,0 +1,15 @@
+default:
+  - 'jshint'
+  - 'bower:install'
+  - 'less'
+  - 'html2js' # must come before concat because we write js that needs to get concat'd
+  - 'copy'
+  - 'concat'
+  - 'bower_concat'
+  - 'clean:tmp'
+
+# @todo point index back to minified assets since we arent using an environment flag
+deploy:
+  - 'default'
+  - 'uglify' # must come after concat, bower_concat
+  - 'cssmin' # must come after less, bower_concat

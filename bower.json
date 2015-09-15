@@ -1,0 +1,16 @@
+{
+  "name": "skill-calc",
+  "description": "its a skill calculator thing",
+  "dependencies": {
+    "bootstrap": "3.2.*",
+    "angular": "~1.4.5",
+    "angular-bootstrap": "~0.13.0",
+    "angular-route": "~1.4.5",
+    "angular-loader": "1.4.5",
+    "angular-sanitize": "~1.4.5",
+    "angular-recursion": "~1.0.5",
+    "angular-animate": "~1.4.5",
+    "angular-mocks": "~1.4.5",
+    "ngstorage": "~0.3.0"
+  }
+}

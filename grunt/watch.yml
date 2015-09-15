@@ -1,0 +1,5 @@
+assets:
+    files: ['./app/**', '!./app/templates.js']
+    tasks: ['default']
+    options:
+        interrupt: true

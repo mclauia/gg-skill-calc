@@ -1,0 +1,6 @@
+app:
+    src: './root/assets/css/app.out.css'
+    dest: './root/assets/css/app.out.min.css'
+lib:
+    src: './root/assets/css/lib.out.css'
+    dest: './root/assets/css/lib.out.min.css'
