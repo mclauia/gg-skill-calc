@@ -1,3 +1,5 @@
+// handles binding the summary area to the sliced set of skills
+// (which will match the latest until the user interacts with the timeline)
 angular.module('skill.timeline.summary.directive', [
     'skill.service',
 ])

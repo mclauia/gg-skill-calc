@@ -1,3 +1,4 @@
+// Parses skill description text for tags that can be displayed as colored text or skill/upgrade/passive tooltips
 angular.module('gameEffects.filter', [
     'ngSanitize',
     'tooltip.directive',

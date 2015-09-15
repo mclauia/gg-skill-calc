@@ -1,3 +1,4 @@
+// drives the timeline, maintaining the overall selected upgrades and the sliced selections for backtracking through the timeline
 angular.module('skill.timeline.directive', [
     'skill.timeline.summary.directive',
     'skill.service',

@@ -1,3 +1,6 @@
+// drives the main skill picker row in the middle of the screen.
+// Recursively loads skill upgrades.
+// Handles passive selection.
 angular.module('skill.picker.directive', [
     'skill.service',
     'skill.picker.upgrade.directive',

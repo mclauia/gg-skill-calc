@@ -1,3 +1,4 @@
+// loads all the skill editor/inspector action, and handles switching between hero skillsets
 angular.module('skill.controller', [
     'skill.picker.directive',
     'skill.timeline.directive',
