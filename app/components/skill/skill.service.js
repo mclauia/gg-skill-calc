@@ -74,6 +74,7 @@ angular.module('skill.service', [
             return $storage.selectedPassives;
         }
 
+        // a recursive function that checks down a skill tree to find if it contains any selected upgrades
         this.isUpgraded = function isUpgraded(skill, skillNames) {
             if (skillNames.indexOf(skill.name) > -1) return true;
 
@@ -84,7 +85,7 @@ angular.module('skill.service', [
             return false;
         }
 
-        // drill into the skill tree to find a skill, its root ability, and the path to get there from root
+        // recursively drill into the skill tree to find a skill, its root ability, and the path to get there from root
         function skillDrill(node, skillName, path) {
             // if this is the droid we're looking for
             if (node.name == skillName) {
