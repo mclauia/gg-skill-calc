@@ -2,6 +2,9 @@
 
 An AngularJS single-page skill calculator for Gigantic, which uses a binary tree of height 2 as a collection of potential upgrade paths for a set of 5 root level skills (plus 4 sets of passives that are binary choices at each step)
 
+## documentation
+View documentation at http://skillcalc.mclauia.com/docs
+
 ## building
 App source is built using Grunt, for installing bower components, compiling less, squashing templates together, concatting and minifying js, bundling library modules, and formatting it all into the root folder.
 
