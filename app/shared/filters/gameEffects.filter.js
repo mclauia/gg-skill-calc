@@ -42,7 +42,7 @@ angular.module('gameEffects.filter', [
                         if (type == 'skill') {
                             value = value.trim(); // @todo do this with regex?
                             scope.skills.push(SkillService.getSkillByKey(value));
-                            scope.heroId = SkillService.getHero();
+                            scope.heroId = SkillService.getCurrentHero();
                         }
                         return match;
                     });

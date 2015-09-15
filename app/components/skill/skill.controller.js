@@ -5,14 +5,15 @@ angular.module('skill.controller', [
     'ngStorage'
 ])
     .controller('SkillController',
-        ['$scope', '$route', '$localStorage', 'PatchService', 'SkillService', 'patchData',
-        function($scope, $route, $localStorage, PatchService, SkillService, patchData) {
+        ['$scope', '$route', 'PatchService', 'SkillService', 'patchData',
+        function($scope, $route, PatchService, SkillService, patchData) {
             // request the current patch data and wait for response
 
             // reset skill points used, skills
             $scope.changeHero = function(hero) {
                 $scope.selectedHero = hero;
-                $storage.heroId = $scope.heroId = $scope.selectedHero.id;
+                SkillService.setCurrentHero($scope.selectedHero.id);
+                $scope.heroId = $scope.selectedHero.id;
 
                 SkillService.resetSkills();
             };
@@ -20,12 +21,14 @@ angular.module('skill.controller', [
             $scope.patch = patchData;
             $scope.heroes = patchData.body.heroes;
 
-            // switch to the first class in the object
-            var $storage = $localStorage.$default({
-                heroId: patchData.body.heroes[Object.keys(patchData.body.heroes)[0]].id
-            });
-            $scope.selectedHero = $scope.heroes[$storage.heroId];
-            $scope.heroId = $storage.heroId;
+            // switch to the first hero in the object
+            var heroId = SkillService.getCurrentHero();
+            if (!heroId) {
+                SkillService.setCurrentHero(patchData.body.heroes[Object.keys(patchData.body.heroes)[0]].id);
+                heroId = SkillService.getCurrentHero();
+            }
+            $scope.selectedHero = $scope.heroes[heroId];
+            $scope.heroId = $scope.selectedHero.id;
 
             $scope.resetSkills = SkillService.resetSkills;
             $scope.getSelectedSkillUpgrades = SkillService.getSelectedSkillUpgrades;

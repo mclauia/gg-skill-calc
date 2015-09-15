@@ -11,7 +11,10 @@ angular.module('skill.service', [
             }),
             that = this; // allows us to alias skill service methods directly (for methods that need 'this')
 
-        this.getHero = function() {
+        this.setCurrentHero = function(heroId) {
+            $storage.heroId = heroId;
+        }
+        this.getCurrentHero = function() {
             return $storage.heroId || false;
         }
         this.selectSkillUpgrade = function(skill, pair) {
@@ -140,7 +143,7 @@ angular.module('skill.service', [
         }
 
         this.getSkillByKey = function(key) {
-            return PatchService.getCurrent().body.heroes[this.getHero()].skills[key] || false;
+            return PatchService.getCurrent().body.heroes[this.getCurrentHero()].skills[key] || false;
         }
 
     }]);
