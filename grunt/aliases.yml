@@ -7,9 +7,13 @@ default:
   - 'concat'
   - 'bower_concat'
   - 'clean:tmp'
+  - 'docs'
 
 # @todo point index back to minified assets since we arent using an environment flag
 deploy:
   - 'default'
   - 'uglify' # must come after concat, bower_concat
   - 'cssmin' # must come after less, bower_concat
+
+docs:
+  - 'ngdocs'

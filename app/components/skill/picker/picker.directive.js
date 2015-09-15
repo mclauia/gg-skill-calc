@@ -1,12 +1,25 @@
-// drives the main skill picker row in the middle of the screen.
-// Recursively loads skill upgrades.
-// Handles passive selection.
 angular.module('skill.picker.directive', [
     'skill.service',
     'skill.picker.upgrade.directive',
     'ui.bootstrap',
     'ui.bootstrap.progressbar'
 ])
+    /**
+     * @ngdoc directive
+     * @name skill.picker.directive:skillPicker
+     * @restrict E
+     * @requires skill.service:SkillService
+     * @requires skill.picker.upgrade.directive:skillUpgrade
+     * @requires ui.bootstrap
+     * @requires ui.bootstrap.progressbar
+     * @description Runs the skill picker action bar.
+     *              Recursively loads skill upgrades.
+     *              Handles passive selection.
+     * @scope
+     * @param {String} heroId the hero id for the skill picker
+     * @param {Object} skills the hero's skills object, keyed by hotkey
+     * @param {Array} passives the hero's passive groups, which are each arrays of passive skills
+     */
     .directive('skillPicker',
         ['SkillService', function(SkillService) {
             return {

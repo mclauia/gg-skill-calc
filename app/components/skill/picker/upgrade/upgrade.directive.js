@@ -3,6 +3,17 @@ angular.module('skill.picker.upgrade.directive', [
     'skill.service',
     'RecursionHelper'
 ])
+    /**
+     * @ngdoc directive
+     * @name skill.picker.upgrade.directive:skillUpgrade
+     * @restrict E
+     * @requires skill.service:SkillService
+     * @requires gameEffects.filter:gameEffects
+     * @requires RecursionHelper
+     * @description Recursively constructs the skill upgrade tree for a skill node.
+     * @scope
+     * @param {Object} upgrades the binary tree of upgrades
+     */
     .directive('skillUpgrade',
         ['RecursionHelper', 'SkillService',
         function(RecursionHelper, SkillService) {
@@ -30,6 +41,16 @@ angular.module('skill.picker.upgrade.directive', [
                 },
             };
         }])
+    /**
+     * @ngdoc directive
+     * @name skill.picker.upgrade.directive:upgradeBranchLines
+     * @restrict E
+     * @description constructs some css lines for the upgrade tree
+     * @requires skill.service:SkillService
+     * @scope
+     * @param {Number} index the index of the node in its parent tree
+     * @param {Object} upgrade the upgrade node itself
+     */
     .directive('upgradeBranchLines',
         ['SkillService', function(SkillService) {
             return {

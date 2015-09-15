@@ -1,8 +1,15 @@
-// handles data about selected skills and saved skillsets
 angular.module('skill.service', [
     'patch.service',
     'ngStorage'
 ])
+    /**
+     * @ngdoc service
+     * @name skill.service:SkillService
+     * @requires patch.service:PatchService
+     * @requires ngStorage
+     * @description
+     *  handles data about selected skills and saved skillsets
+     */
     .service('SkillService', ['$localStorage', 'PatchService', function($localStorage, PatchService) {
         var $storage = $localStorage.$default({
                 selectedSkillUpgrades: [],
@@ -11,12 +18,34 @@ angular.module('skill.service', [
             }),
             that = this; // allows us to alias skill service methods directly (for methods that need 'this')
 
+        /**
+         * @ngdoc method
+         * @name skill.service#setCurrentHero
+         * @methodOf skill.service:SkillService
+         * @description sets the current hero id
+         * @param {string} heroId the new hero id
+         */
         this.setCurrentHero = function(heroId) {
             $storage.heroId = heroId;
         }
+        /**
+         * @ngdoc method
+         * @name skill.service#getCurrentHero
+         * @methodOf skill.service:SkillService
+         * @description     gets the current hero id
+         * @returns {string | Boolean} the hero id or false
+         */
         this.getCurrentHero = function() {
             return $storage.heroId || false;
         }
+        /**
+         * @ngdoc method
+         * @name skill.service#selectSkillUpgrade
+         * @methodOf skill.service:SkillService
+         * @description     Select an upgrade for a skill
+         * @param {Object} skill the skill upgrade
+         * @param {Object} pair the upgrades pair from the parent
+         */
         this.selectSkillUpgrade = function(skill, pair) {
             // find the one that the skill is not
             var siblingName = pair.left.name == skill.name ? pair.right.name : pair.left.name;
@@ -27,54 +56,146 @@ angular.module('skill.service', [
                 $storage.selectedSkillUpgrades.push(skill.name);
             }
         }
+
+        /**
+         * @ngdoc method
+         * @name skill.service#selectPassive
+         * @methodOf skill.service:SkillService
+         * @description     Select a passive for a passive slot
+         * @param {Object} passive the passive object
+         * @param {Object} passiveSlot the index for the passive (0 for level 3, 1 for level 5, 2 for level 7, 3 for level 9)
+         */
         this.selectPassive = function(passive, passiveSlot) {
             // push this skill onto selected skills
             $storage.selectedPassives[passiveSlot] = (passive.name);
         }
 
+        /**
+         * @ngdoc method
+         * @name skill.service#resetSkills
+         * @methodOf skill.service:SkillService
+         * @description     Resets all selected skills and passives
+         */
         this.resetSkills = function() {
             $storage.selectedSkillUpgrades = [];
+            $storage.altSkillUpgrades = [];
             $storage.selectedPassives = [];
         }
 
+        /**
+         * @ngdoc method
+         * @name skill.service#isSkillUpgradeSelected
+         * @methodOf skill.service:SkillService
+         * @description     Determine whether a particular skill upgrade has been selected
+         * @param {Object} skill the skill to check
+         * @returns {Boolean} is selected
+         */
         this.isSkillUpgradeSelected = function(skill) {
             return $storage.selectedSkillUpgrades.indexOf(skill.name) > -1;
         }
+        /**
+         * @ngdoc method
+         * @name skill.service#isSkillUpgradeSiblingSelected
+         * @methodOf skill.service:SkillService
+         * @description     Determine whether a particular skill's sibling was selected instead
+         * @param {Object} skill the skill upgrade
+         * @param {Object} pair the upgrades pair from the parent
+         * @returns {Boolean} is sibling selected
+         */
         this.isSkillUpgradeSiblingSelected = function(skill, pair) {
             // find the one that the current skill is not
             var siblingName = pair.left.name == skill.name ? pair.right.name : pair.left.name;
             return $storage.selectedSkillUpgrades.indexOf(siblingName) > -1;
         }
 
+        /**
+         * @ngdoc method
+         * @name skill.service#isPassiveSelected
+         * @methodOf skill.service:SkillService
+         * @description     Determine whether a particular passive skill has been selected
+         * @param {Object} skill the skill upgrade
+         * @returns {Boolean} is passive selected
+         */
         this.isPassiveSelected = function(skill) {
             return $storage.selectedPassives.indexOf(skill.name) > -1;
         }
+        /**
+         * @ngdoc method
+         * @name skill.service#isPassiveSlotSelected
+         * @methodOf skill.service:SkillService
+         * @description     Determine whether a particular passive slot has a selection
+         * @param {Number} index the passive slot index
+         * @returns {Boolean} is passive slot selected
+         */
         this.isPassiveSlotSelected = function(index) {
             return !!$storage.selectedPassives[index];
         }
 
+        /**
+         * @ngdoc method
+         * @name skill.service#isPassiveAvailable
+         * @methodOf skill.service:SkillService
+         * @description     Determine whether a passive is available for selection (must have advanced the level by selecting upgrades)
+         * @param {Number} index the passive slot index
+         * @returns {Boolean} is available
+         */
         this.isPassiveAvailable = function(index) {
             // level breakpoints are level 3 for slot 0, level 5 for slot 1, level 7 for slot 2, and level 9 for slot 3.
             return (that.getLevelRequired() - 3) / 2 > index;
         }
+        /**
+         * @ngdoc method
+         * @name skill.service#getRequiredLevelForPassive
+         * @methodOf skill.service:SkillService
+         * @description     Get the required level for a passive slot
+         * @param {Number} index the passive slot index
+         * @returns {Number} the required level
+         */
         this.getRequiredLevelForPassive = function(index) {
             return (2 * index) + 3;
         }
 
+        /**
+         * @ngdoc method
+         * @name skill.service#getLevelRequired
+         * @methodOf skill.service:SkillService
+         * @description     Get the overall level required for all skill selections
+         * @returns {Number} The overall level required for all skill selections
+         */
         this.getLevelRequired = function() {
             // level 1 is no skills selected
             return $storage.selectedSkillUpgrades.length + 2;
         }
-        // selectedskills is essentially a timeline; add 2 to the index, and that is the level at which the skill was selected
+        /**
+         * @ngdoc method
+         * @name skill.service#getSelectedSkillUpgrades
+         * @methodOf skill.service:SkillService
+         * @description     selectedskills is essentially a timeline; add 2 to the index, and that is the level at which the skill was selected
+         * @returns {Array} the selected skill upgrades
+         */
         this.getSelectedSkillUpgrades = function() {
             return $storage.selectedSkillUpgrades;
         }
-        // same
+        /**
+         * @ngdoc method
+         * @name skill.service#getSelectedPassives
+         * @methodOf skill.service:SkillService
+         * @description     selectedpassives is also essentially a timeline
+         * @returns {Array} the selected passives
+         */
         this.getSelectedPassives = function() {
             return $storage.selectedPassives;
         }
 
-        // a recursive function that checks down a skill tree to find if it contains any selected upgrades
+        /**
+         * @ngdoc method
+         * @name skill.service#isUpgraded
+         * @methodOf skill.service:SkillService
+         * @description     a recursive function that checks down a skill tree to find if it contains any selected upgrades
+         * @param {Object} skill the skill to check for upgrades
+         * @param {Array} skillNames the set of skill names to check against (allows sliced lookups)
+         * @returns {Boolean} whether the skill is upgraded
+         */
         this.isUpgraded = function isUpgraded(skill, skillNames) {
             if (skillNames.indexOf(skill.name) > -1) return true;
 
@@ -117,7 +238,15 @@ angular.module('skill.service', [
             return false;
         }
 
-        // will basically extend skill info object with hotkey, upgrade path
+        /**
+         * @ngdoc method
+         * @name skill.service#getSkillInfoByName
+         * @methodOf skill.service:SkillService
+         * @description     will basically extend skill info object with hotkey, upgrade path
+         * @param {string} hero the hero id
+         * @param {string} skillName the skill name
+         * @returns {Object} an extended hero skill object with root skill and upgrade path info
+         */
         this.getSkillInfoByName = function(hero, skillName) {
             var heroInfo = PatchService.getCurrent().body.heroes[hero],
                 hotkey, i, j, passiveGroup, skillInfo;
@@ -142,7 +271,14 @@ angular.module('skill.service', [
             throw 'the skill' + skillName + ' does not exist for the hero ' + hero;
             return false;
         }
-
+        /**
+         * @ngdoc method
+         * @name skill.service#getSkillByKey
+         * @methodOf skill.service:SkillService
+         * @description     get a hero skill by its hot key
+         * @param {string} key the hotkey (lmb, rmb, q, e, r)
+         * @returns {Object} the skill
+         */
         this.getSkillByKey = function(key) {
             return PatchService.getCurrent().body.heroes[this.getCurrentHero()].skills[key] || false;
         }

@@ -1,12 +1,21 @@
-// Parses skill description text for tags that can be displayed as colored text or skill/upgrade/passive tooltips
+//
 angular.module('gameEffects.filter', [
     'ngSanitize',
     'tooltip.directive',
     'skill.service'
 ])
+    /**
+     * @ngdoc filter
+     * @name gameEffects.filter:gameEffects
+     * @restrict E
+     * @requires skill.service:SkillService
+     * @requires ngSanitize
+     * @description Parses skill description text for tags that can be displayed as colored text or skill/upgrade/passive tooltips.
+     *              Scrape an input string for [foo | bar] to convert into colored text (with tooltips for skills) based on type 'bar'
+     * @param {String} input the string to scrape
+     */
     .filter('gameEffects', ['SkillService', function(SkillService) {
         return function(input) {
-            // parse [foo | bar] into colored text (with tooltips for skills) based type 'bar'
             if (!input) {
                 return;
             }
@@ -27,7 +36,18 @@ angular.module('gameEffects.filter', [
             return replaced;
         };
     }])
-    // this wonky expletive is essentially here to double-compile gameEffects-filtered text so that we can stick directives in the filtered output and have them work
+    /**
+     * @ngdoc directive
+     * @name gameEffects.filter:gameTips
+     * @restrict A
+     * @requires skill.service:SkillService
+     * @requires tooltip.directive:skillTooltip
+     * @requires ngSanitize
+     * @description this wonky expletive is essentially here to double-compile gameEffects-filtered text so that we can stick directives in the filtered output and have them work
+     * @scope
+     * @param {String} desc the description string
+     */
+    //
     .directive('gameTips',
         ['$compile', '$filter', 'SkillService',
         function($compile, $filter, SkillService) {

@@ -1,8 +1,20 @@
-// drives the timeline, maintaining the overall selected upgrades and the sliced selections for backtracking through the timeline
 angular.module('skill.timeline.directive', [
     'skill.timeline.summary.directive',
     'skill.service',
 ])
+    /**
+     * @ngdoc directive
+     * @name skill.timeline.directive:skillTimeline
+     * @restrict E
+     * @requires skill.service:SkillService
+     * @requires skill.timeline.summary.directive:skillSummary
+     * @description Drives the skill timeline, which updates as the user selects new skills and passives.
+     *              Maintains the overall selected upgrades and the sliced selections for backtracking through the timeline
+     * @scope
+     * @param {String} heroId the hero id for the skill picker
+     * @param {Object} skills the hero's skills object, keyed by hotkey
+     * @param {Array} passives the hero's passive groups, which are each arrays of passive skills
+     */
     .directive('skillTimeline',
         ['SkillService',
         function(SkillService) {

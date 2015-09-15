@@ -1,0 +1,9 @@
+all:
+    src: './app/**/*.js'
+    title: 'Docs'
+    api: true
+options:
+    dest: 'docs'
+    title: "SkillCalc NgDocs"
+    startPage: '/api/skill.service:SkillService'
+    html5Mode: false
