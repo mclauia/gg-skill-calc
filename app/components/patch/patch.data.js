@@ -639,15 +639,15 @@ angular.module('patch.data', [])    // this mocks an endpoint basically
                                     },
                                     right: {
                                         name: 'Triple Tiger Kick',
-                                        desc: 'After sprinting, your third attack [lmb | skill],[lmb | skill],[lmb | skill] interrupts.',
+                                        desc: 'After sprinting, your third [lmb | skill] attack interrupts.',
                                         upgrades: {
                                             left: {
                                                 name: 'Hop To It',
-                                                desc: 'After dodging, you may perform Triple Tiger Kick [lmb | skill],[lmb | skill],[lmb | skill].',
+                                                desc: 'After dodging, you may perform Triple Tiger Kick [lmb | skill].',
                                             },
                                             right: {
                                                 name: 'Kick It Up a Notch',
-                                                desc: 'After Splash Kick [rmb | skill], you may perform Triple Tiger Kick [lmb | skill],[lmb | skill],[lmb | skill].',
+                                                desc: 'After Splash Kick [rmb | skill], you may perform Triple Tiger Kick [lmb | skill].',
                                             }
                                         }
                                     }
@@ -659,15 +659,15 @@ angular.module('patch.data', [])    // this mocks an endpoint basically
                                 upgrades: {
                                     left: {
                                         name: 'Splashdown',
-                                        desc: 'Downward Kick [rmb | skill],[rmb | skill] slows your target. (3s)',
+                                        desc: 'Downward Kick from [rmb | skill] slows your target. (3s)',
                                         upgrades: {
                                             left: {
                                                 name: 'Burst the Dam',
-                                                desc: 'Downward Kick [rmb | skill],[rmb | skill] breaks target\'s armor. (4s)',
+                                                desc: 'Downward Kick from [rmb | skill] breaks target\'s armor. (4s)',
                                             },
                                             right: {
                                                 name: 'Forceful Current',
-                                                desc: 'Downward Kick [rmb | skill],[rmb | skill] interrupts on hit.',
+                                                desc: 'Downward Kick from [rmb | skill] interrupts on hit.',
                                             }
                                         }
                                     },
@@ -741,15 +741,15 @@ angular.module('patch.data', [])    // this mocks an endpoint basically
                                     },
                                     right: {
                                         name: 'Whet Your Appetite',
-                                        desc: 'On hit, Splash Kick [rmb | skill] and Crashing Waves [q | skill] recharge. (+10s Tonguelash cooldown)',
+                                        desc: 'On hit, [rmb | skill] and [q | skill] recharge. (+10s Tonguelash cooldown)',
                                         upgrades: {
                                             left: {
                                                 name: 'Whiplash',
-                                                desc: '[e | skill], [rmb | skill]: Splash Kick [rmb | skill] dazes for 2s.',
+                                                desc: '[e | skill], [rmb | skill]: [rmb | skill] dazes for 2s.',
                                             },
                                             right: {
                                                 name: 'Wave Goodbye',
-                                                desc: '[e | skill], [q | skill]: Crashing Waves [q | skill] first strike launches. (+6s [q | skill] cooldown.)',
+                                                desc: '[e | skill], [q | skill]: Q first strike launches. (+6s Q cooldown.)',
                                             }
                                         }
                                     }

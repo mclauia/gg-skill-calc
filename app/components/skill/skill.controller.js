@@ -20,6 +20,7 @@ angular.module('skill.controller', [
             $scope.changeHero = function(hero) {
                 $scope.selectedHero = hero;
                 SkillService.resetSkills();
+                $scope.exported = null;
                 SkillService.setCurrentHero($scope.selectedHero.id);
                 $scope.heroId = $scope.selectedHero.id;
             };
@@ -36,12 +37,21 @@ angular.module('skill.controller', [
             $scope.selectedHero = $scope.heroes[heroId];
             $scope.heroId = $scope.selectedHero.id;
 
-            $scope.resetSkills = SkillService.resetSkills;
+            $scope.resetSkills = function() {
+                SkillService.resetSkills();
+                $scope.exported = null;
+            }
             $scope.getSelectedSkillUpgrades = SkillService.getSelectedSkillUpgrades;
 
+            $scope.type = function(event) {
+                if (event.which == '13') {
+                    $scope.importSelections();
+                }
+            }
             $scope.exportSelections = function() {
                 $scope.exported = SkillService.exportSelections();
             }
+            // @todo get dis from the url
             $scope.importSelections = function() {
                 SkillService.importSelections($scope.exported);
             }
