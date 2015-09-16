@@ -39,5 +39,11 @@
 <div class="row">
     <div class="col-xs-12">
         <skill-timeline skills="selectedHero.skills" hero-id="heroId" passives="selectedHero.passives"></skill-timeline>
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="exportSelections()">Export Skills</button>
+            </span>
+            <input type="text" class="form-control export" ng-model="exported" ng-keypress="type($event)">
+        </div>
     </div>
 </div>

@@ -16,7 +16,7 @@ angular.module('skill.controller', [
     .controller('SkillController',
         ['$scope', '$route', '$location', 'PatchService', 'SkillService', 'patchData',
         function($scope, $route, $location, PatchService, SkillService, patchData) {
-            // reset skill points used, skills
+            // reset skills, export field, and swap the hero id
             $scope.changeHero = function(hero) {
                 $scope.selectedHero = hero;
                 SkillService.resetSkills();
