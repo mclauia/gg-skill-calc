@@ -8,6 +8,7 @@ angular.module('skillCalcApp', [
     'app.templates'
 ])
 .config(['$routeProvider', '$provide', '$httpProvider', function($routeProvider, $provide, $httpProvider) {
+    // @todo i'd instead like to say /:heroId/:buildhash but not swap ng-view on change
     $routeProvider
         .when('/', {
             templateUrl: 'views/components/skill/edit.tpl',

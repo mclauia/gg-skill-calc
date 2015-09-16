@@ -1,4 +1,12 @@
-// loads all the skill editor/inspector action, and handles switching between hero skillsets
+/**
+ * @ngdoc object
+ * @name skill.controller:SkillController
+ * @description loads all the skill editor/inspector action, and handles switching between hero skillsets, as well as importing/exporting controls
+ * @requires skill.picker.directive:skillPicker
+ * @requires skill.timeline.directive:skillTimeline
+ * @requires language.filter
+ * @requires ngStorage
+ */
 angular.module('skill.controller', [
     'skill.picker.directive',
     'skill.timeline.directive',
@@ -6,17 +14,14 @@ angular.module('skill.controller', [
     'ngStorage'
 ])
     .controller('SkillController',
-        ['$scope', '$route', 'PatchService', 'SkillService', 'patchData',
-        function($scope, $route, PatchService, SkillService, patchData) {
-            // request the current patch data and wait for response
-
+        ['$scope', '$route', '$location', 'PatchService', 'SkillService', 'patchData',
+        function($scope, $route, $location, PatchService, SkillService, patchData) {
             // reset skill points used, skills
             $scope.changeHero = function(hero) {
                 $scope.selectedHero = hero;
+                SkillService.resetSkills();
                 SkillService.setCurrentHero($scope.selectedHero.id);
                 $scope.heroId = $scope.selectedHero.id;
-
-                SkillService.resetSkills();
             };
 
             $scope.patch = patchData;
@@ -34,4 +39,10 @@ angular.module('skill.controller', [
             $scope.resetSkills = SkillService.resetSkills;
             $scope.getSelectedSkillUpgrades = SkillService.getSelectedSkillUpgrades;
 
+            $scope.exportSelections = function() {
+                $scope.exported = SkillService.exportSelections();
+            }
+            $scope.importSelections = function() {
+                SkillService.importSelections($scope.exported);
+            }
         }]);

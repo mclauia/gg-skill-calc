@@ -18,6 +18,15 @@
                 <label>Level:</label>
                 <progressbar max="max = 10" value="level = getSelectedSkillUpgrades().length + 1"><strong>{{level}}</strong></progressbar>
                 <button class="btn btn-default" type="button" ng-click="resetSkills()">Reset Skills</button>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" ng-click="exportSelections()">Export Skills</button>
+                    </span>
+                    <input type="text" class="form-control export" ng-model="exported">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" ng-click="importSelections()">Import Skills</button>
+                    </span>
+                </div>
             </div>
         </div>
     </div>

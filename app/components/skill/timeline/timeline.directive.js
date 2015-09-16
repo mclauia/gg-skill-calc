@@ -60,7 +60,9 @@ angular.module('skill.timeline.directive', [
                         return scope.selectedSkillUpgradesInfo[index];
                     }
                     scope.getPassiveInfo = function(passiveName) {
-                        return SkillService.getSkillInfoByName(scope.heroId, passiveName);
+                        if (scope.selectedPassives.indexOf(passiveName) > -1) {
+                            return SkillService.getSkillInfoByName(scope.heroId, passiveName);
+                        }
                     }
                     scope.sliceSkills = function(level) {
                         if (scope.selectedSkillUpgrades.length > level - 2) {

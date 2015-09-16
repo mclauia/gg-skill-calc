@@ -58,17 +58,20 @@ angular.module('gameEffects.filter', [
                 },
                 link: function(scope, elm) {
                     scope.skills = [];
-                    // setting up the scope we'll use to compile, but not actually replacing anything
-                    scope.desc.replace(/\[([^\|]+)\|\s?(\w+)\]/g, function(match, value, type) {
-                        if (type == 'skill') {
-                            value = value.trim(); // @todo do this with regex?
-                            scope.skills.push(SkillService.getSkillByKey(value));
-                            scope.heroId = SkillService.getCurrentHero();
-                        }
-                        return match;
+                    scope.$watch('desc', function(newVal) {
+                        newVal.replace(/\[([^\|]+)\|\s?(\w+)\]/g, function(match, value, type) {
+                            if (type == 'skill') {
+                                value = value.trim(); // @todo do this with regex?
+                                scope.skills.push(SkillService.getSkillByKey(value));
+                                scope.heroId = SkillService.getCurrentHero();
+                            }
+                            return match;
+                        });
+                        scope.desc = newVal;
+                        var filtered = $filter('gameEffects')(scope.desc);
+                        elm.empty();
+                        elm.append($compile('<span>'+filtered+'</span>')(scope))
                     });
-                    var filtered = $filter('gameEffects')(scope.desc);
-                    elm.append($compile('<span>'+filtered+'</span>')(scope))
                 },
             };
         }])

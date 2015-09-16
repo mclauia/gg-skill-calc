@@ -193,10 +193,13 @@ angular.module('skill.service', [
          * @methodOf skill.service:SkillService
          * @description     a recursive function that checks down a skill tree to find if it contains any selected upgrades
          * @param {Object} skill the skill to check for upgrades
-         * @param {Array} skillNames the set of skill names to check against (allows sliced lookups)
+         * @param {Array=} skillNames the set of skill names to check against (allows sliced lookups)
          * @returns {Boolean} whether the skill is upgraded
          */
         this.isUpgraded = function isUpgraded(skill, skillNames) {
+            if (!skillNames) {
+                skillNames = $storage.selectedSkillUpgrades;
+            }
             if (skillNames.indexOf(skill.name) > -1) return true;
 
             if (skill.upgrades) {
@@ -220,7 +223,7 @@ angular.module('skill.service', [
                 return false;
             }
 
-            // if this isnt the right skill, but we have children to search, do it
+            // if this isnt the right skill, but we have children to search, then drill through the heavens
             var left = skillDrill(node.upgrades.left, skillName, 'left');
             var right = skillDrill(node.upgrades.right, skillName, 'right');
 
@@ -255,7 +258,10 @@ angular.module('skill.service', [
             for (i = 0; i < heroInfo.passives.length; i++) {
                 passiveGroup = heroInfo.passives[i];
                 for (j = 0; j < passiveGroup.length; j++) {
-                    if (passiveGroup[j].name == skillName) return passiveGroup[j];
+                    if (passiveGroup[j].name == skillName) {
+                        passiveGroup[j].index = j; // @todo hm does this need to know the slot index too
+                        return passiveGroup[j];
+                    }
                 };
             };
             // check hero skills; if it is a child skill, return info about the left/right path to the skill
@@ -268,7 +274,7 @@ angular.module('skill.service', [
                     return skillInfo;
                 }
             }
-            throw 'the skill' + skillName + ' does not exist for the hero ' + hero;
+            throw new Error('the skill ' + skillName + ' does not exist for the hero ' + hero);
             return false;
         }
         /**
@@ -283,4 +289,72 @@ angular.module('skill.service', [
             return PatchService.getCurrent().body.heroes[this.getCurrentHero()].skills[key] || false;
         }
 
+        /**
+         * @ngdoc method
+         * @name skill.service#exportSelections
+         * @methodOf skill.service:SkillService
+         * @description     create a url string for this hero and selection set
+         */
+        this.exportSelections = function() {
+            var hash = '', info, j, skillCache;
+
+            for (var i = 0; i < $storage.selectedSkillUpgrades.length; i++) {
+                info = that.getSkillInfoByName(that.getCurrentHero(), $storage.selectedSkillUpgrades[i]);
+                hash += info.hotkey + '-'; // o__o;;
+                hash += info.paths[info.paths.length - 1].charAt(0);
+                if (i != $storage.selectedSkillUpgrades.length - 1 || $storage.selectedPassives.length) {
+                    hash += '-';
+                }
+            };
+            // @todo this assumes that these passives start from index 0;
+            // if someone is silly and has a passive selection gap, itll fill the gap first
+            for (var i = 0; i < $storage.selectedPassives.length; i++) {
+                info = that.getSkillInfoByName(that.getCurrentHero(), $storage.selectedPassives[i]);
+                hash += info.index;
+                if (i != $storage.selectedPassives.length - 1) {
+                    hash += '-';
+                }
+            };
+
+            return hash;
+        }
+        /**
+         * @ngdoc method
+         * @name skill.service#importSelections
+         * @methodOf skill.service:SkillService
+         * @description     load a set of selections from a hash
+         * @param {string} hash the hash generated from an earlier result of this.exportSelections
+         */
+        this.importSelections = function(hash) {
+            that.resetSkills();
+
+            var split = hash.split('-'),
+                thing, key, direction, rootSkillInfo, skillCache = {}, skill, pair,
+                passiveIndex = 0, passives = PatchService.getCurrent().body.heroes[this.getCurrentHero()].passives;
+
+            while (split.length) {
+                thing = split.shift();
+                if (isNaN(parseInt(thing))) {
+                    // its skill upgrade info
+                    key = thing;
+                    direction = split.shift() == 'l' ? 'left' : 'right';
+                    rootSkillInfo = that.getSkillByKey(key);
+                    if (!skillCache[key]) {
+                        skill = rootSkillInfo.upgrades[direction];
+                        pair = rootSkillInfo.upgrades;
+                    } else {
+                        skill = skillCache[key].upgrades[direction];
+                        pair = skillCache[key].upgrades;
+                    }
+                    that.selectSkillUpgrade(skill, pair);
+                    // keep track of the last skill node encountered for this key,
+                    // in case we encounter the same skill later and need to drill into it
+                    skillCache[key] = skill;
+                } else {
+                    // its a passive index
+                    that.selectPassive(passives[passiveIndex][thing], passiveIndex);
+                    passiveIndex++;
+                }
+            }
+        }
     }]);

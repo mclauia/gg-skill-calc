@@ -37,7 +37,7 @@ angular.module('patch.service', [])
             if (cachedPatchData) {
                 return cachedPatchData;
             } else {
-                throw 'you are trying to get data before you load it';
+                throw new Error('you are trying to get data before you load it');
             }
         };
 
