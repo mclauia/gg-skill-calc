@@ -33,12 +33,12 @@
 </div>
 <div class="row skill-picker-row">
     <div class="col-xs-10 col-xs-offset-2">
-        <skill-picker skills="selectedHero.skills" hero-id="heroId" passives="selectedHero.passives"></skill-picker>
+        <skill-picker skills="selectedHero.skills" hero-id="selectedHero.id" passives="selectedHero.passives"></skill-picker>
     </div>
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <skill-timeline skills="selectedHero.skills" hero-id="heroId" passives="selectedHero.passives"></skill-timeline>
+        <skill-timeline skills="selectedHero.skills" hero-id="selectedHero.id" passives="selectedHero.passives"></skill-timeline>
         <div class="input-group">
             <span class="input-group-btn">
                 <button class="btn btn-default" type="button" ng-click="exportSelections()">Export Skills</button>

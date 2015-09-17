@@ -22,7 +22,6 @@ angular.module('skill.controller', [
                 SkillService.resetSkills();
                 $scope.exported = null;
                 SkillService.setCurrentHero($scope.selectedHero.id);
-                $scope.heroId = $scope.selectedHero.id;
             };
 
             $scope.patch = patchData;
@@ -35,7 +34,6 @@ angular.module('skill.controller', [
                 heroId = SkillService.getCurrentHero();
             }
             $scope.selectedHero = $scope.heroes[heroId];
-            $scope.heroId = $scope.selectedHero.id;
 
             $scope.resetSkills = function() {
                 SkillService.resetSkills();

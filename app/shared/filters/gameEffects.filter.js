@@ -57,8 +57,9 @@ angular.module('gameEffects.filter', [
                     desc: '='
                 },
                 link: function(scope, elm) {
-                    scope.skills = [];
                     scope.$watch('desc', function(newVal) {
+                        scope.skills = [];
+                        // sets up the tooltip skill scope to match gameEffects, but makes no actual replacements
                         newVal.replace(/\[([^\|]+)\|\s?(\w+)\]/g, function(match, value, type) {
                             if (type == 'skill') {
                                 value = value.trim(); // @todo do this with regex?

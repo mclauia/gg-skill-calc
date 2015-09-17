@@ -39,7 +39,6 @@ angular.module('skill.timeline.summary.directive', [
                         return out;
                     }
 
-                    scope.slicedSkillsInfo = [];
                     scope.$watch('slicedSkills', function(newVal) {
                         var slicedSkills = newVal;
                         scope.slicedSkillsInfo = [];

@@ -142,9 +142,72 @@
         }
         &.vertical.branch {
             left: -33px;
-            top: -42px;
-            width: 16px;
+            top: -43px;
+            width: 17px;
         }
     }
 
+}
+
+// the left-most tree is special because of left edge positioning
+.action-bar-skill:nth-child(1) {
+    .action-bar-upgrade:nth-child(1) {
+        right: 12px;
+        .line.vertical.branch {
+            right: 18px;
+        }
+        .line.horizontal {
+            right: 32px;
+            width: 75px;
+        }
+        .action-bar-upgrade:nth-child(1) {
+            right: 2px;
+            .line.vertical.branch {
+                right: 10px;
+            }
+            .line.horizontal {
+                right: 24px;
+                width: 83px;
+            }
+        }
+        .action-bar-upgrade:nth-child(2) {
+            left:398px;
+            .right-tree .line.horizontal {
+                width: 206px;
+                right: 230px;
+            }
+        }
+    }
+    .action-bar-upgrade:nth-child(2) {
+        left: 148px;
+        .right-tree {
+            .line {
+                &.vertical.branch {
+                    left: -102px;
+                }
+                &.horizontal {
+                    width: 207px;
+                }
+            }
+        }
+        .action-bar-upgrade:nth-child(1) {
+            right: 320px;
+            .line.vertical.branch {
+                right: -60px;
+            }
+            .line.horizontal {
+                right: -46px;
+                width: 153px;
+            }
+        }
+        .action-bar-upgrade:nth-child(2) {
+            left: 80px;
+            .line.vertical.branch {
+                left: -32px;
+            }
+            .line.horizontal {
+                width: 137px;
+            }
+        }
+    }
 }
